@@ -97,14 +97,17 @@ def register():
     if form.validate_on_submit():
         check = User.query.filter_by(email=form.email.data).first()
         if check is None:
-            password_hash = generate_password_hash(form.password.data, method='pbkdf2:sha256', salt_length=8)
-            new_user = User(
-                name=form.username.data,
-                email=form.email.data,
-                password=password_hash
-            )
-            db.session.add(new_user)
-            db.session.commit()
+            if form.password.data == form.rep_password.data:
+                password_hash = generate_password_hash(form.password.data, method='pbkdf2:sha256', salt_length=8)
+                new_user = User(
+                    name=form.username.data,
+                    email=form.email.data,
+                    password=password_hash
+                )
+                db.session.add(new_user)
+                db.session.commit()
+            else:
+                flash("Password Fields dont match")
             return redirect(url_for("login"))
         else:
             flash('Email already in use!')
