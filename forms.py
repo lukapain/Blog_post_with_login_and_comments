@@ -17,7 +17,8 @@ class CreateRegisterForm(FlaskForm):
     username = StringField("Username :", validators=[DataRequired()])
     email = EmailField("Email :", validators=[DataRequired()])
     password = PasswordField("Password :", validators=[DataRequired(), Length(min=8), Regexp('^[\w-]+$',
-                                                                                             message='Username can contain only alphanumeric characters (and _, -).')])
+    rep_password = PasswordField("Repeat password :", validators=[DataRequired(),  Length(min=8), Regexp('^[\w-]+$',
+                                                                                             message='Username can contain only alphanumeric characters (and _, -).')])                                                                                         message='Username can contain only alphanumeric characters (and _, -).')])
     submit = SubmitField("Sign up")
 
 
